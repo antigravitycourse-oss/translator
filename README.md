@@ -102,6 +102,20 @@ To deploy this project to production, you can split the frontend and backend or 
     *   `GEMINI_API_KEY`: Your Google Gemini API Key (optional, users can also input their own on the UI).
 5.  Render will deploy your backend and provide a public URL (e.g., `https://your-app.onrender.com`).
 
+#### Deploying on Hugging Face Spaces
+1.  Sign in to [Hugging Face](https://huggingface.co/) and click **New Space**.
+2.  Name your Space, select **Docker** as the SDK, and choose **Blank** template.
+3.  Set the Space visibility (Public/Private).
+4.  Go to the Space **Settings** -> **Variables and secrets**, and add your secret:
+    *   Key: `GEMINI_API_KEY`, Value: `your-api-key-here` (Optional, as clients can supply their own keys).
+5.  Push your codebase (containing the root `Dockerfile`, `backend/`, and `frontend/` folders) to the Hugging Face Git remote repository:
+    ```bash
+    git remote add hf https://huggingface.co/spaces/YOUR_USERNAME/YOUR_SPACE_NAME
+    git push -u hf main --force
+    ```
+6.  Hugging Face will automatically build the container using the root `Dockerfile` and launch the application on port `7860`.
+7.  Once the Space status changes to **Running**, your app will be active and hosted on Hugging Face.
+
 ---
 
 ### Frontend Deployment (e.g., Vercel)
